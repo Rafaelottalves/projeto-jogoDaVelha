@@ -1,13 +1,93 @@
-import { endGame } from "./fim_de_jogo"
+import endGame from "./fim_de_jogo.js"
 
 let btn_começar = document.querySelector('#container-conteudo button')
 
 function executar() {
     let blocos = [...document.querySelectorAll('#tabela td')]
-    let msg_maquina = document.getElementById('msg-maquina')
+    let verifState = false
+
+
+    function verifGanhador() {
+        if(
+            blocos[0].innerHTML == 'X' && 
+            blocos[1].innerHTML == 'X' &&
+            blocos[2].innerHTML == 'X' ||
+
+            blocos[0].innerHTML == 'X' && 
+            blocos[3].innerHTML == 'X' &&
+            blocos[6].innerHTML == 'X' ||
+
+            blocos[6].innerHTML == 'X' && 
+            blocos[7].innerHTML == 'X' &&
+            blocos[8].innerHTML == 'X' ||
+
+            blocos[8].innerHTML == 'X' && 
+            blocos[5].innerHTML == 'X' &&
+            blocos[2].innerHTML == 'X' ||
+
+            blocos[0].innerHTML == 'X' && 
+            blocos[4].innerHTML == 'X' &&
+            blocos[8].innerHTML == 'X' ||
+
+            blocos[2].innerHTML == 'X' && 
+            blocos[4].innerHTML == 'X' &&
+            blocos[6].innerHTML == 'X' ||
+
+            blocos[1].innerHTML == 'X' && 
+            blocos[4].innerHTML == 'X' &&
+            blocos[7].innerHTML == 'X' ||
+
+            blocos[3].innerHTML == 'X' && 
+            blocos[4].innerHTML == 'X' &&
+            blocos[5].innerHTML == 'X'
+        ) {
+            verifState = true
+            endGame('Você ganhou!')
+            clearInterval(verif)
+        } else if(
+            blocos[0].innerHTML == 'O' && 
+            blocos[1].innerHTML == 'O' &&
+            blocos[2].innerHTML == 'O' ||
+
+            blocos[0].innerHTML == 'O' && 
+            blocos[3].innerHTML == 'O' &&
+            blocos[6].innerHTML == 'O' ||
+
+            blocos[6].innerHTML == 'O' && 
+            blocos[7].innerHTML == 'O' &&
+            blocos[8].innerHTML == 'O' ||
+
+            blocos[8].innerHTML == 'O' && 
+            blocos[5].innerHTML == 'O' &&
+            blocos[2].innerHTML == 'O' ||
+
+            blocos[0].innerHTML == 'O' && 
+            blocos[4].innerHTML == 'O' &&
+            blocos[8].innerHTML == 'O' ||
+
+            blocos[2].innerHTML == 'O' && 
+            blocos[4].innerHTML == 'O' &&
+            blocos[6].innerHTML == 'O' ||
+
+            blocos[1].innerHTML == 'O' && 
+            blocos[4].innerHTML == 'O' &&
+            blocos[7].innerHTML == 'O' ||
+
+            blocos[3].innerHTML == 'O' && 
+            blocos[4].innerHTML == 'O' &&
+            blocos[5].innerHTML == 'O'
+        ) {
+            verifState = true
+            endGame('Você perdeu!')
+            clearInterval(verif)
+        }
+    }
+    let verif = setInterval(() => {
+        verifGanhador()
+    }, 1000)
     
     blocos.forEach((bloco) => {
-        bloco.addEventListener('click', () => {
+        bloco.addEventListener('click', (evt) => {
             if(bloco.innerHTML == 'O') {
                 bloco.innerHTML == 'O'
             } else if(bloco.innerHTML == '') {
@@ -25,26 +105,21 @@ function executar() {
                     }
                 })
 
-                if(!(livre.includes(true) == false)) {
-                    msg_maquina.innerHTML = 'Pensando...'
-                }
-
                 if(livre.includes(true) == false) {
-                    console.log('deu velha')
-                    endGame('Empate', 'Parece que deu velha, você e a maquina empataram')
+                    verifGanhador()
+                    if(verifState == false) {
+                        console.log('deu velha')
+                        endGame('Empate')
+                    }
                 }
 
-                setTimeout(() => {
-                    msg_maquina.innerHTML = ''
-
-                    if(!(livre.includes(true) == false)) {
-                        let posAleatoria = Math.floor(Math.random() * newBlocos.length)
-                        newBlocos[posAleatoria].innerHTML = 'O'
-                    }
-                }, 800)
+                if(!(livre.includes(true) == false)) {
+                    let posAleatoria = Math.floor(Math.random() * newBlocos.length)
+                    newBlocos[posAleatoria].innerHTML = 'O'
+                }
             }
         })
     })
 }
-
+    
 btn_começar.addEventListener('click', executar)

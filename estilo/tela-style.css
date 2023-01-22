@@ -1,49 +1,63 @@
 @charset "UTF-8";
 
-#tela {
+#container-tela {
     width: 100vw;
     height: 100vh;
 
-    display: none;
-
     position: absolute;
-    top: 0;
+    top: -100vh;
     left: 0;
 
-    background-image: linear-gradient(180deg, rgb(122, 122, 122), rgb(187, 185, 185));
+    backdrop-filter: blur(3px);
+}
+
+#tela {
+    width: 95%;
+    height: 80%;
+
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    background-color: rgb(187, 50, 0);
 }
 
 .titulo-fim {
-    margin-top: 170px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 
-    font-size: 2.3em;
-    text-align: center;
+    font-size: 2.2em;
     letter-spacing: .5px;
     text-transform: uppercase;
 
-    color: rgb(0, 0, 0)
+    color: rgb(255, 255, 255)
+
 } 
 
-.msg-fim {
-    margin-bottom: 30px;
-
-    font-size: 1em;
-    text-align: center;
-    line-height: 1.5em;
-
-    color: rgb(0, 0, 0)
-}
-
 .btn-fim {
-    width: 140px;
+    width: 135px;
     height: 40px;
-
-    margin: 0 auto;
-    display: block;
 
     border-radius: 5px;
 
-    font-size: 1.3em;
+    font-size: 1.2em;
     font-weight: bold;
+
+    color: white;
+    background-color: black;
+}
+
+@keyframes tela-final {
+    0% {
+        top: -100vh;
+    }
+
+    100% {
+        top: 0;
+    }
 }
