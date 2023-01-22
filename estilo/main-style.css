@@ -2,6 +2,7 @@
 
 @import url('./reset.css');
 @import url('./menu-style.css');
+@import url('./tela-style.css');
 
 #fundo {
     width: 100vw;
